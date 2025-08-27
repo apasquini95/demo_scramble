@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MyResource;
+use App\Models\MyModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,5 +13,10 @@ class MyController extends Controller
     {
         $bool = $request->boolean('test_param');
         return $bool ? $user->id : -1;
+    }
+
+    public function myModelResourceHandler(MyModel $myModel): MyResource
+    {
+        return new MyResource($myModel);
     }
 }
