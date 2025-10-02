@@ -9,11 +9,12 @@ class MyRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, string>
      */
     public function rules(): array
     {
         return [
+            /** @format H:i */
             'my_param' => ['required', 'string', 'date_format:H:i']
         ];
     }
