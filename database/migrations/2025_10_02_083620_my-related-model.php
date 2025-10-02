@@ -13,7 +13,7 @@ return new class extends Migration {
     {
         Schema::create('my_related_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(MyModel::class);
+            $table->foreignIdFor(MyModel::class)->constrained();
             $table->integer('value');
         });
     }
