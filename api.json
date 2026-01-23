@@ -10,67 +10,23 @@
         }
     ],
     "paths": {
-        "/endpoint-with-optional-path-param/{user}": {
+        "/endpoint-with-enum": {
             "get": {
-                "operationId": "optional_path_param",
+                "operationId": "endpoint_with_enum",
                 "tags": [
                     "My"
                 ],
                 "parameters": [
                     {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "**Optional**",
-                        "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
-                        },
-                        "x-optional": true
-                    },
-                    {
-                        "name": "test_param",
+                        "name": "my-enum-param",
                         "in": "query",
-                        "schema": {
-                            "type": "boolean",
-                            "default": false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/splitted-endpoint/{user}": {
-            "get": {
-                "operationId": "required_path_param",
-                "tags": [
-                    "My"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
                         "required": true,
                         "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "2"
+                            ]
                         }
                     }
                 ],
@@ -80,29 +36,49 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "enum": [
+                                        1
+                                    ]
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
-        },
-        "/splitted-endpoint": {
-            "get": {
-                "operationId": "only_test_param",
-                "tags": [
-                    "My"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
+        }
+    },
+    "components": {
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
                         }
                     }
                 }

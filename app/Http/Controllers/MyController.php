@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\MyEnumRequest;
 
 class MyController extends Controller
 {
-    public function myHandler(Request $request, ?User $user = null): int
+    public function myHandler(MyEnumRequest $request): int
     {
-        $bool = $request->boolean('test_param');
-        return $bool ? $user->id : -1;
+        return 1;
     }
 }
