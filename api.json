@@ -10,99 +10,48 @@
         }
     ],
     "paths": {
-        "/endpoint-with-optional-path-param/{user}": {
+        "/endpoint-with-not-found": {
             "get": {
-                "operationId": "optional_path_param",
+                "operationId": "not-found-api",
+                "summary": "Summary of myHandler",
                 "tags": [
                     "My"
                 ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "**Optional**",
-                        "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
-                        },
-                        "x-optional": true
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
                     },
-                    {
-                        "name": "test_param",
-                        "in": "query",
-                        "schema": {
-                            "type": "boolean",
-                            "default": false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundHttpException"
                     }
                 }
             }
-        },
-        "/splitted-endpoint/{user}": {
-            "get": {
-                "operationId": "required_path_param",
-                "tags": [
-                    "My"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
+        }
+    },
+    "components": {
+        "responses": {
+            "NotFoundHttpException": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
                         "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
                                 }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/splitted-endpoint": {
-            "get": {
-                "operationId": "only_test_param",
-                "tags": [
-                    "My"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
+                            },
+                            "required": [
+                                "message"
+                            ]
                         }
                     }
                 }

@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\MyService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MyController extends Controller
 {
-    public function myHandler(Request $request, ?User $user = null): int
+    public function __construct(private MyService $myService)
     {
-        $bool = $request->boolean('test_param');
-        return $bool ? $user->id : -1;
+    }
+
+    /**
+     * Summary of myHandler
+     * @param Request $request
+     * @return bool
+     * @throws NotFoundHttpException
+     */
+    public function myHandler(Request $request): bool
+    {
+        return $this->myService->isRequestOk($request);
     }
 }
