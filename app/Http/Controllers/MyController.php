@@ -2,49 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MyController extends Controller
 {
-    /**
-     * Summary of myHandler
-     * @param Request $request
-     * @param mixed $user
-     * @return int
-     * @throws NotFoundHttpException
-     * @throws BadRequestHttpException
-     */
-    public function myHandler(Request $request): int
+    public function __construct(private UserService $userService)
     {
-        $bool = $request->boolean('test_param');
-        $this->doSomething($bool);
-
-        return 1;
     }
-
-    /**
-     * Summary of myOtherHandler
-     * @param Request $request
-     * @return int
-     * @throws NotFoundHttpException
-     * @throws BadRequestHttpException
-     */
-    public function myOtherHandler(Request $request): int
+    public function myHandler(Request $request): ResourceCollection
     {
-        $bool = $request->boolean('test_param');
-        $this->doSomething($bool);
-
-        return 2;
-    }
-
-    private function doSomething(bool $param): void
-    {
-        if ($param) {
-            throw new BadRequestHttpException();
-        }
-
-        throw new NotFoundHttpException();
+        return UserResource::collection(
+            $this->userService->getByName('Test', true)
+                ->orderBy('name')
+                ->orderBy('id')
+                ->paginate(
+                    perPage: 4,
+                    page: $request->integer('page')
+                )
+        );
     }
 }

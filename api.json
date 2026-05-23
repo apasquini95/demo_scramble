@@ -13,132 +13,66 @@
         "/endpoint-1": {
             "get": {
                 "operationId": "endpoint-1",
-                "summary": "Summary of myHandler",
                 "tags": [
                     "My"
                 ],
                 "parameters": [
                     {
-                        "name": "test_param",
+                        "name": "page",
                         "in": "query",
                         "schema": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "integer",
+                            "default": 0
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer",
-                                    "const": 1
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request",
+                        "description": "Array of `UserResource`",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "description": "Error overview."
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserResource"
+                                            }
                                         }
                                     },
                                     "required": [
-                                        "message"
+                                        "data"
                                     ]
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFoundHttpException"
-                    }
-                }
-            }
-        },
-        "/endpoint-2": {
-            "get": {
-                "operationId": "endpoint-2",
-                "summary": "Summary of myOtherHandler",
-                "tags": [
-                    "My"
-                ],
-                "parameters": [
-                    {
-                        "name": "test_param",
-                        "in": "query",
-                        "schema": {
-                            "type": "boolean",
-                            "default": false
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer",
-                                    "const": 2
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "description": "Error overview."
-                                        }
-                                    },
-                                    "required": [
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFoundHttpException"
                     }
                 }
             }
         }
     },
     "components": {
-        "responses": {
-            "NotFoundHttpException": {
-                "description": "Not found",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string",
-                                    "description": "Error overview."
-                                }
-                            },
-                            "required": [
-                                "message"
-                            ]
-                        }
+        "schemas": {
+            "UserResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "id",
+                    "email",
+                    "nome"
+                ],
+                "title": "UserResource"
             }
         }
     }
