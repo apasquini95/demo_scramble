@@ -48,7 +48,14 @@
                         "type": "boolean"
                     },
                     "conditional_prop_but_required": {
-                        "type": "boolean"
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "boolean"
+                            }
+                        ]
                     },
                     "fake_bool_prop": {
                         "type": "boolean"

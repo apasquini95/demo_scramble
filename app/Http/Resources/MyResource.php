@@ -6,6 +6,7 @@ use App\Dto\MyDto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\MissingValue;
 
 /**
  * Summary of MyResource.
@@ -37,7 +38,7 @@ class MyResource extends JsonResource
                 }
             ),
             
-            /** @var bool */
+            /** @var MissingValue|bool */
             'conditional_prop_but_required' => $this->when(
                 array_key_exists('prop_2', $props),
                 function () use ($props) {
