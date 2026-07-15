@@ -10,102 +10,52 @@
         }
     ],
     "paths": {
-        "/endpoint-with-optional-path-param/{user}": {
+        "/": {
             "get": {
-                "operationId": "optional_path_param",
+                "operationId": "test_route",
                 "tags": [
                     "My"
                 ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "description": "**Optional**",
-                        "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
-                        },
-                        "x-optional": true
+                "responses": {
+                    "200": {
+                        "description": "`MyResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/MyResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "MyResource": {
+                "type": "object",
+                "properties": {
+                    "required_prop": {
+                        "type": "integer"
                     },
-                    {
-                        "name": "test_param",
-                        "in": "query",
-                        "schema": {
-                            "type": "boolean",
-                            "default": false
-                        }
+                    "conditional_prop": {
+                        "type": "boolean"
                     }
+                },
+                "required": [
+                    "required_prop",
+                    "conditional_prop"
                 ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/splitted-endpoint/{user}": {
-            "get": {
-                "operationId": "required_path_param",
-                "tags": [
-                    "My"
-                ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/splitted-endpoint": {
-            "get": {
-                "operationId": "only_test_param",
-                "tags": [
-                    "My"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                }
+                "title": "MyResource"
             }
         }
     }

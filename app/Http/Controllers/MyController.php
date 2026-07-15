@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Dto\MyDto;
+use App\Http\Resources\MyResource;
 
 class MyController extends Controller
 {
-    public function myHandler(Request $request, ?User $user = null): int
+    public function myHandler(): MyResource
     {
-        $bool = $request->boolean('test_param');
-        return $bool ? $user->id : -1;
+        return new MyResource(new MyDto(['prop_1' => 0]));
     }
 }
