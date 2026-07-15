@@ -44,16 +44,18 @@
             "MyResource": {
                 "type": "object",
                 "properties": {
-                    "required_prop": {
-                        "type": "integer"
-                    },
                     "conditional_prop": {
+                        "type": "boolean"
+                    },
+                    "conditional_prop_but_required": {
+                        "type": "boolean"
+                    },
+                    "fake_bool_prop": {
                         "type": "boolean"
                     }
                 },
                 "required": [
-                    "required_prop",
-                    "conditional_prop"
+                    "conditional_prop_but_required"
                 ],
                 "title": "MyResource"
             }

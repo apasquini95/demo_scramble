@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Dto\MyDto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,15 +29,29 @@ class MyResource extends JsonResource
         $props = $this->resource->props;
 
         return [
-            /** @var int */
-            'required_prop'    => $props['prop_1'],
             /** @var bool */
             'conditional_prop' => $this->when(
                 array_key_exists('prop_2', $props),
                 function () use ($props) {
+                    return (bool) $props['prop_2'];
+                }
+            ),
+            
+            /** @var bool */
+            'conditional_prop_but_required' => $this->when(
+                array_key_exists('prop_2', $props),
+                function () use ($props) {
                     return $props['prop_2'];
                 }
-            )
+            ),
+
+            /** @var bool */
+            'fake_bool_prop'   => $this->when(
+                array_key_exists('prop_1', $props),
+                function () use ($props) {
+                    return strlen((string) $props['prop_1']);
+                }
+            ),
         ];
     }
 }
