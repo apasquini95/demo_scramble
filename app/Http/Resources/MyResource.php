@@ -45,6 +45,13 @@ class MyResource extends JsonResource
                     return $props['prop_2'];
                 }
             ),
+            
+            'type_hint_fn_return' => $this->when(
+                array_key_exists('prop_2', $props),
+                function () use ($props): bool {
+                    return $props['prop_2'];
+                }
+            ),
 
             /** @var bool */
             'fake_bool_prop'   => $this->when(

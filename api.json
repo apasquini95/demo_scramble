@@ -57,12 +57,14 @@
                             }
                         ]
                     },
+                    "type_hint_fn_return": {},
                     "fake_bool_prop": {
                         "type": "boolean"
                     }
                 },
                 "required": [
-                    "conditional_prop_but_required"
+                    "conditional_prop_but_required",
+                    "type_hint_fn_return"
                 ],
                 "title": "MyResource"
             }
