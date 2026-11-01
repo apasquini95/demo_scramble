@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RouteParamRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class MyController extends Controller
 {
-    public function myHandler(Request $request, ?User $user = null): int
+    public function myHandler(RouteParamRequest $request): int
     {
-        $bool = $request->boolean('test_param');
-        return $bool ? $user->id : -1;
+        return 1;
     }
 }
