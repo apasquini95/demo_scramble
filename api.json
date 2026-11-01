@@ -1,5 +1,5 @@
 {
-    "openapi": "3.1.0",
+    "openapi": "3.1.2",
     "info": {
         "title": "Laravel",
         "version": "0.0.1"
@@ -23,20 +23,15 @@
                         "required": true,
                         "description": "**Optional**",
                         "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
+                            "type": "string"
                         },
                         "x-optional": true
                     },
                     {
-                        "name": "test_param",
+                        "name": "param_1",
                         "in": "query",
                         "schema": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "integer"
                         }
                     }
                 ],
@@ -46,10 +41,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "const": 1
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -66,11 +65,14 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "default": null
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "param_1",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],
@@ -80,10 +82,14 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "const": 1
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -94,15 +100,62 @@
                 "tags": [
                     "My"
                 ],
+                "parameters": [
+                    {
+                        "name": "param_1",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "const": 1
                                 }
                             }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
                         }
                     }
                 }
